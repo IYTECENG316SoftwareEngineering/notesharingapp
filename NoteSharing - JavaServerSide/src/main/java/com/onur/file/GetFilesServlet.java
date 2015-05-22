@@ -32,13 +32,14 @@ public class GetFilesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//response.setContentType("text/html;charset=UTF-8");
         //JSONObject json = new JSONObject();
+		String folder = request.getParameter("folder");
         String[] item = new String[50];
         String username, filename;
         Blob file;
         int i=0;
         List<String> list = new ArrayList<String>();
         String json = ""; 
-        String sql = "SELECT `id`, `user`, `filename`, `file` FROM `files`";
+        String sql = "SELECT `id`, `user`, `filename`, `file` FROM `files` WHERE `folder`='" + folder + "' ORDER BY `id`";
         Connection con = DBConnectionHandler.getConnection();
         
         try {
@@ -49,7 +50,7 @@ public class GetFilesServlet extends HttpServlet {
                 username = rs.getString("user");
                 filename = rs.getString("filename");
                 file = rs.getBlob("file");
-                item[i] = "(" + username + ") - " + filename;
+                item[i] = id + " (" + username + ") - " + filename;
                 list.add(item[i]);
                 json = new Gson().toJson(list);
                 //json.put("id", id);

@@ -1,4 +1,4 @@
-package com.onur.message;
+package com.onur.file;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,22 +14,19 @@ import org.json.simple.JSONObject;
 import com.onur.database.DBConnectionHandler;
 
 /**
- * Servlet implementation class DeleteMessageServlet
+ * Servlet implementation class DeleteFileServlet
  */
-public class DeleteMessageServlet extends HttpServlet {
+public class DeleteFileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		JSONObject json = new JSONObject();     
-		
-		
-		
-        String sql = "DELETE FROM `messages` WHERE `id`='"+ request.getParameter("id") + "';";
+				
+        String sql = "DELETE FROM `files` WHERE `id`='"+ request.getParameter("id") + "';";
         Connection con = DBConnectionHandler.getConnection();
          
         try {

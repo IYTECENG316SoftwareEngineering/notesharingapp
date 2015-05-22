@@ -25,7 +25,6 @@ import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 import com.onur.database.DBConnectionHandler;
-
 /**
  * Servlet implementation class FileDownloadServlet
  */
@@ -53,8 +52,8 @@ public class FileDownloadServlet extends HttpServlet {
 	private void download(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		String json="";
-		String sql = "select `file` from `files` where `id`='" + request.getParameter("id") + "'";
+		JSONObject json = new JSONObject();
+		String sql = "select `file`, `filename` from `files` where `id`='" + request.getParameter("id") + "'";
 		
 		Connection con = DBConnectionHandler.getConnection();
         
@@ -63,6 +62,7 @@ public class FileDownloadServlet extends HttpServlet {
             ResultSet rs = ps.executeQuery(sql);
             while(rs.next()){
             	String fileName = rs.getString("filename");
+            	json.put("filename", fileName);    	
             	Blob blob = rs.getBlob("file");
             	InputStream inputStream = blob.getBinaryStream();
                 int fileLength = inputStream.available();
@@ -83,6 +83,7 @@ public class FileDownloadServlet extends HttpServlet {
                 String headerKey = "Content-Disposition";
                 String headerValue = String.format("attachment; filename=\"%s\"", fileName);
                 response.setHeader(headerKey, headerValue);
+                //json.put("file", inputStream);
  
                 // writes the file to the client
                 OutputStream outStream = response.getOutputStream();
@@ -93,7 +94,7 @@ public class FileDownloadServlet extends HttpServlet {
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
                     outStream.write(buffer, 0, bytesRead);
                 }
-                 
+                               
                 inputStream.close();
                 outStream.close();             
             } 
@@ -115,9 +116,9 @@ public class FileDownloadServlet extends HttpServlet {
          }
                
         //System.out.println(json);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(json);
+        //response.setContentType("application/json");
+        //response.setCharacterEncoding("UTF-8");
+        //response.getWriter().write(json.toString());
 		
 	}
 

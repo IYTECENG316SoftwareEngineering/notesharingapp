@@ -50,8 +50,8 @@ public class FileUploadServlet extends HttpServlet {
 
 			JSONObject json = new JSONObject();        
 			 
-	        String sql = "INSERT INTO `files`(`user`, `filename`, `file`) "+ 
-	        		"VALUES (?,?,?);";
+	        String sql = "INSERT INTO `files`(`user`, `filename`, `file`, `folder`) "+ 
+	        		"VALUES (?,?,?,?);";
 	        Connection con = DBConnectionHandler.getConnection();
 	         
 	        try {
@@ -59,6 +59,7 @@ public class FileUploadServlet extends HttpServlet {
 	            ps.setString(1, request.getParameter("user"));
 	            ps.setString(2, fileName);
 	            ps.setBlob(3, p.getInputStream());
+	            ps.setString(4, request.getParameter("folder"));
 	            int rs = ps.executeUpdate();
 	            if (rs!=0) {
 	                json.put("info", "success");

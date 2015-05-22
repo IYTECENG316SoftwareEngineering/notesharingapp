@@ -36,7 +36,7 @@ public class GetMessageServlet extends HttpServlet {
         int i=0;
         List<String> list = new ArrayList<String>();
         String json = ""; 
-        String sql = "SELECT `id`, `user`, `message` FROM `messages`";
+        String sql = "SELECT `id`, `user`, `message` FROM `messages` ORDER BY `id`";
         Connection con = DBConnectionHandler.getConnection();
         
         try {

@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3b5998"
+    >
+
+    <TextView
+        android:id="@+id/file_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please choose a folder"
+        android:textColor="#ffffff"/>
+
+    <ListView
+        android:id="@+id/folders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/file_info">
+
+    </ListView>
+
+
+</RelativeLayout>
